@@ -37,15 +37,17 @@ def open_camera():
     cap.release()
     cv.destroyAllWindows()
 
-choice = pyip.inputChoice(
+choice: str = pyip.inputChoice(
     ['SIM', 'NAO'], 
     prompt="DESEJA ABRIA A CÂMERA [SIM | NAO]: "
 )
 
-if(choice != 'SIM' and choice != "NAO"): 
+choiceFormated = choice.lower()
+
+if( choiceFormated != 'SIM' and choiceFormated != "NAO"): 
     print("Essa opção não existe no sistema")
 
-if (choice == 'SIM'):
+if (choiceFormated == 'SIM'):
     open_camera()
 else:
-    print("Você escolheu não, então, sem câmera haha!")
+    print("Você escolheu não, então, sem câmera!")
