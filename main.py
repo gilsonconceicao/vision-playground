@@ -8,7 +8,11 @@ choice: str = pyip.inputChoice(
 
 choiceFormated = choice.upper()
 
-if (choiceFormated == 'SIM'):
-    resolvers.OpenCameraResolve()
-else:
+if choiceFormated == 'NAO':
     print("Você escolheu não, então, sem câmera!")
+
+try:
+    resolvers.OpenCameraResolve()
+except Exception as error:
+    print(f"Erro ao abrir a câmera: {error}")
+    
