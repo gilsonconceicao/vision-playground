@@ -1,6 +1,5 @@
 import pyinputplus as pyip
-import vision_playground.resolvers as OpenCameraResolve;
-
+from services import open_camera_service
 
 def main():
     choice: str = pyip.inputChoice(
@@ -10,10 +9,10 @@ def main():
 
     if choice == 'NAO':
         print("Você escolheu não, então, sem câmera!")
-        return  # 🔥 importante: para aqui
+        return
 
     try:
-        OpenCameraResolve()
+        open_camera_service()
     except Exception as error:
         print(f"Erro ao abrir a câmera: {error}")
 
