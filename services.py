@@ -29,10 +29,10 @@ def open_camera_service():
 
             attempt = attempt+1
             if (attempt is 1):
-                print("# Pressione 'q' para sair")
+                print("Pressione 'q' para sair")
                 
             if cv.waitKey(1) & 0xFF == ord('q'):
-                print("Encerrando câmera...")
+                print("Tecla q pressionada. Encerrando câmera...")
                 break
 
     finally:
