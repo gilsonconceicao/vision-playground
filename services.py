@@ -12,6 +12,8 @@ def open_camera_service():
     if not cap.isOpened():
         print("Câmera não abriu")
         exit()
+
+    face_cascade = cv.CascadeClassifier("assets/haarcascade_frontalface_default.xml")
     
     status = "Abriu!"
 
@@ -25,10 +27,27 @@ def open_camera_service():
                 raise RuntimeError("Erro ao capturar frame da câmera")
 
             gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-            cv.imshow('frame', gray)
+            gray_bgr = cv.cvtColor(gray, cv.COLOR_GRAY2BGR)
+            
+            faces = face_cascade.detectMultiScale(
+                gray,
+                scaleFactor=1.3,
+                minNeighbors=5
+            )
+
+            for (x, y, w, h) in faces:
+                cv.rectangle(
+                    gray_bgr,
+                    (x, y),
+                    (x + w, y + h),
+                    (0, 255, 0),
+                    2
+                )
+
+            cv.imshow("Face Detection", gray_bgr)
 
             attempt = attempt+1
-            if (attempt is 1):
+            if (attempt == 1):
                 print("Pressione 'q' para sair")
                 
             if cv.waitKey(1) & 0xFF == ord('q'):
@@ -39,6 +58,3 @@ def open_camera_service():
         cap.release()
         cv.destroyAllWindows()
         print("Recursos liberados com sucesso")
-
-    cap.release()
-    cv.destroyAllWindows()
